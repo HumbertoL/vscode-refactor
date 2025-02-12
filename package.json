@@ -26,11 +26,11 @@
     "commands": [
       {
         "command": "r2d2-ai-refactor-tool.setApiKey",
-        "title": "Set OpenAI API Key"
+        "title": "r2d2 - Set OpenAI API Key"
       },
       {
         "command": "r2d2-ai-refactor-tool.refactorStyles",
-        "title": "React - Refactor JSS to Styled Components"
+        "title": "r2d2 - Refactor JSS to Styled Components"
       }
     ]
   },
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
-    "@types/vscode": "^1.97.0",
+    "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",
     "@vscode/test-cli": "^0.0.10",
