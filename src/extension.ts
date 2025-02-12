@@ -3,6 +3,17 @@ import axios from 'axios';
 
 const VSCODE_EXTENSION_ID = 'r2d2-ai-refactor-tool';
 
+const STYLES_PROMPT = `Convert this component to use styled components. 
+Use object notation for the styled component. 
+Use one styled component for the root and use classnames for any children.
+Use kebabCase for the class names, but do not add an ampersand in front of the class names..
+Name the styled element StyledRoot. or if the render function has a Component as the root that is being returned, use the component name and call it StyledComponentName.
+ex. If the root element being returned is a div, name it StyledRoot. If the root element being returned is a Button, name it StyledButton.
+Do not import React. Do not change the order of the imports. 
+Give me the entire file. Do not add any explanation. 
+Provide only the code, do not surround the code in backticks.
+Do not change anything other than the styles. \n\n`;
+
 async function setApiKey() {
   const apiKey = await vscode.window.showInputBox({
     prompt: 'Enter your OpenAI API Key',
@@ -30,7 +41,7 @@ async function refactorCode() {
   }
 
   const document = editor.document;
-  const text = document.getText();
+  const fileContent = document.getText();
 
   const openAIKey = vscode.workspace
     .getConfiguration()
@@ -66,16 +77,7 @@ async function refactorCode() {
               },
               {
                 role: 'user',
-                content: `Convert this component to use styled components. 
-            Use object notation for the styled component. 
-            Use one styled component for the root and use classnames for any children.
-            Use kebabCase for the class names, but do not add an ampersand in front of the class names..
-            Name the styled element StyledRoot. or if the render function has a Component as the root that is being returned, use the component name and call it StyledComponentName.
-            ex. If the root element being returned is a div, name it StyledRoot. If the root element being returned is a Button, name it StyledButton.
-            Do not import React. Do not change the order of the imports. 
-            Give me the entire file. Do not add any explanation. 
-            Provide only the code, do not surround the code in backticks.
-            Do not change anything other than the styles. \n\n${text}`,
+                content: `${STYLES_PROMPT}${fileContent}`,
               },
             ],
             temperature: 0.3,
