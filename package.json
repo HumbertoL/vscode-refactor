@@ -2,7 +2,7 @@
   "name": "r2d2-ai-refactor-tool",
   "displayName": "r2d2-ai-refactor-tool",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "callemall",
   "repository": "https://github.com/HumbertoL/vscode-refactor",
   "engines": {

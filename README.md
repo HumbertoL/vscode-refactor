@@ -34,7 +34,15 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 - Initial release
 
-## Distributing and installing
+## Installation
+
+- Obtain a .vsix file
+  - To get a prebuild file, go to the releases tab https://github.com/HumbertoL/vscode-refactor/releases
+  - To build your own, see section below
+- Run `code --install-extension ./r2d2-ai-refactor-tool-0.0.1.vsix`
+- See Setup section above to set up API key
+
+## Packaging and Distributing
 
 1. Install `vsce`
 
@@ -42,7 +50,6 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 1. Update the version number in package.json
 1. Run `yarn build`
-1. Share the .vsix file
-1. Run `code --install-extension ./r2d2-ai-refactor-tool-0.0.1.vsix` to install it.
+1. See Installation section above
 
 ---
