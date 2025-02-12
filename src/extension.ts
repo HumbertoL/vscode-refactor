@@ -1,5 +1,8 @@
 import * as vscode from 'vscode';
 import axios from 'axios';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const VSCODE_EXTENSION_ID = 'r2d2-ai-refactor-tool';
 
@@ -43,9 +46,11 @@ async function refactorCode() {
   const document = editor.document;
   const fileContent = document.getText();
 
-  const openAIKey = vscode.workspace
+  const openAIKeyFromConfig = vscode.workspace
     .getConfiguration()
     .get<string>(`${VSCODE_EXTENSION_ID}.openAIKey`);
+
+  const openAIKey = openAIKeyFromConfig || process.env.OPENAI_API_KEY;
 
   if (!openAIKey) {
     vscode.window.showErrorMessage(
