@@ -58,11 +58,19 @@ async function refactorCode() {
           },
           {
             role: 'user',
-            content: `Convert this component to use styled components? Use object notation for the styled component. Use one styled component for the root and use classnames for any children. Do not import React. Do not change the order of the imports. PGive me the entire file. Do not add any explanation. Provide only the code. \n\n${text}`,
+            content: `Convert this component to use styled components. 
+            Use object notation for the styled component. 
+            Use one styled component for the root and use classnames for any children.
+            Name that element StyledRoot or if it is a Component, use the component name and call it StyledComponentName.
+            Do not import React. Do not change the order of the imports. 
+            Give me the entire file. Do not add any explanation. 
+            Provide only the code, do not surround the code in backticks.
+            Do not change anything other than the styles. \n\n${text}`,
           },
         ],
         temperature: 0.3,
-        max_tokens: 2000,
+        // max is 4096,
+        max_tokens: 4096,
       },
       {
         headers: {
@@ -72,7 +80,11 @@ async function refactorCode() {
       },
     );
 
+    vscode.window.showInformationMessage('Received refactored code!');
+
     const refactoredCode = response.data.choices[0].message.content.trim();
+
+    console.log('Refactored code:', refactoredCode);
 
     const edit = new vscode.WorkspaceEdit();
     const fullRange = new vscode.Range(
@@ -99,7 +111,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      `${VSCODE_EXTENSION_ID}.refactor-styles`,
+      `${VSCODE_EXTENSION_ID}.refactorStyles`,
       refactorCode,
     ),
   );

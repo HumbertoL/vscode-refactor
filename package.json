@@ -4,7 +4,7 @@
   "description": "",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.97.0"
+    "vscode": "^1.96.0"
   },
   "categories": [
     "Other"
@@ -12,13 +12,24 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "AI Refactor Settings",
+      "properties": {
+        "r2d2-ai-refactor-tool.openAIKey": {
+          "type": "string",
+          "description": "Your OpenAI API Key",
+          "default": "",
+          "scope": "user"
+        }
+      }
+    },
     "commands": [
       {
         "command": "r2d2-ai-refactor-tool.setApiKey",
         "title": "Set OpenAI API Key"
       },
       {
-        "command": "r2d2-ai-refactor-tool.refactor-styles",
+        "command": "r2d2-ai-refactor-tool.refactorStyles",
         "title": "React - Refactor JSS to Styled Components"
       }
     ]
@@ -35,7 +46,8 @@
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "deploy": "vsce package --no-yarn"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
