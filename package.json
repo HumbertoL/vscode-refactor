@@ -3,6 +3,8 @@
   "displayName": "r2d2-ai-refactor-tool",
   "description": "",
   "version": "0.0.1",
+  "publisher": "callemall",
+  "repository": "https://github.com/HumbertoL/vscode-refactor",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -47,7 +49,7 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test",
-    "deploy": "vsce package --no-yarn"
+    "build": "vsce package --no-yarn"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",

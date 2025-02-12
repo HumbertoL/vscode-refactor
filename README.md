@@ -10,11 +10,9 @@ You must create an OpenAPI key:
 
 ## Setup
 
-Use the command palette in VSCode (Shift + Command + P (Mac) / Ctrl + Shift + P (Windows/Linux)) and type "r2d2"
-
-Select the option for setting the OpenAI key. Paste your key here.
-
-Once the key is set, open the command palette again and select the refactor command.
+1. Use the command palette in VSCode (Shift + Command + P (Mac) / Ctrl + Shift + P (Windows/Linux)) and type "r2d2"
+1. Select the option for setting the OpenAI key. Paste your key here.
+1. Once the key is set, open the command palette again and select the refactor command.
 
 ## Features
 
@@ -35,5 +33,16 @@ Calling out known issues can help limit users opening duplicate issues against y
 ### 1.0.0
 
 - Initial release
+
+## Distributing and installing
+
+1. Install `vsce`
+
+- `yarn global add vsce`
+
+1. Update the version number in package.json
+1. Run `yarn build`
+1. Share the .vsix file
+1. Run `code --install-extension ./r2d2-ai-refactor-tool-0.0.1.vsix` to install it.
 
 ---
