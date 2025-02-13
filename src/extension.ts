@@ -7,7 +7,7 @@ dotenv.config();
 const VSCODE_EXTENSION_ID = 'r2d2-ai-refactor-tool';
 
 const STYLES_PROMPT = `Convert this React component to use styled components. 
-Use object notation for the styled component. 
+Use object notation for the styled component. Do not use a string template for the styled component.
 Use one styled component for the root and use classnames for any children that need styling.
 Use kebabCase for the class names. Do not add an ampersand in front of the class names in the style object.
 Name the styled element StyledRoot, or if the render function has a component as the root that is being returned, use that component's name and call it StyledComponentName.
@@ -15,6 +15,7 @@ Example: If the root element being returned is a div, name the styled component 
 Do not import React. Do not change the order of the imports. 
 Give me the entire file. Do not add any explanation. 
 Provide only the code. Do not surround the code in backticks.
+Remove widthStyles and classes where they are not needed.
 Do not change anything other than the styles.`;
 
 async function setApiKey() {
@@ -61,6 +62,9 @@ async function refactorCode() {
 
   // vscode.window.showInformationMessage('Sending code to AI for refactoring...');
 
+  // capture start time
+  const startTime = new Date().getTime();
+
   await vscode.window.withProgress(
     {
       location: vscode.ProgressLocation.Notification,
@@ -86,9 +90,11 @@ async function refactorCode() {
               },
             ],
             temperature: 0.3,
-            // max output tokens is 4096,
+            // max output tokens is 4096 for gpt-4-turbo,
             // max_tokens: 2048,
             max_tokens: 4096,
+            // Max for gpt-4o-mini is 16,384
+            // max_completion_tokens: 8192,
           },
           {
             headers: {
@@ -112,7 +118,14 @@ async function refactorCode() {
         edit.replace(document.uri, fullRange, refactoredCode);
 
         await vscode.workspace.applyEdit(edit);
-        vscode.window.showInformationMessage('\nCode refactored successfully!');
+
+        // capture end time
+        const endTime = new Date().getTime();
+        const timeTaken = (endTime - startTime) / 1000;
+
+        vscode.window.showInformationMessage(
+          `\nCode refactored successfully! Time taken: ${timeTaken} seconds`,
+        );
       } catch (error) {
         vscode.window.showErrorMessage(
           'Error refactoring code: ' + (error as Error).message,
