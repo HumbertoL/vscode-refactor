@@ -6,16 +6,16 @@ dotenv.config();
 
 const VSCODE_EXTENSION_ID = 'r2d2-ai-refactor-tool';
 
-const STYLES_PROMPT = `Convert this component to use styled components. 
+const STYLES_PROMPT = `Convert this React component to use styled components. 
 Use object notation for the styled component. 
-Use one styled component for the root and use classnames for any children.
-Use kebabCase for the class names, but do not add an ampersand in front of the class names..
-Name the styled element StyledRoot. or if the render function has a Component as the root that is being returned, use the component name and call it StyledComponentName.
-ex. If the root element being returned is a div, name it StyledRoot. If the root element being returned is a Button, name it StyledButton.
+Use one styled component for the root and use classnames for any children that need styling.
+Use kebabCase for the class names. Do not add an ampersand in front of the class names in the style object.
+Name the styled element StyledRoot, or if the render function has a component as the root that is being returned, use that component's name and call it StyledComponentName.
+Example: If the root element being returned is a div, name the styled component "StyledRoot". If the root element being returned is a Button, name the styled component "StyledButton".
 Do not import React. Do not change the order of the imports. 
 Give me the entire file. Do not add any explanation. 
-Provide only the code, do not surround the code in backticks.
-Do not change anything other than the styles. \n\n`;
+Provide only the code. Do not surround the code in backticks.
+Do not change anything other than the styles.`;
 
 async function setApiKey() {
   const apiKey = await vscode.window.showInputBox({
@@ -73,16 +73,16 @@ async function refactorCode() {
         const response = await axios.post(
           'https://api.openai.com/v1/chat/completions',
           {
+            // model: 'gpt-4o-mini',
             model: 'gpt-4-turbo',
             messages: [
               {
                 role: 'system',
-                content:
-                  'You are a code refactoring assistant specializing in modern JavaScript and React best practices.',
+                content: STYLES_PROMPT,
               },
               {
                 role: 'user',
-                content: `${STYLES_PROMPT}${fileContent}`,
+                content: fileContent,
               },
             ],
             temperature: 0.3,
