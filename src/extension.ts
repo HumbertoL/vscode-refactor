@@ -15,7 +15,7 @@ Example: If the root element being returned is a div, name the styled component 
 Do not import React. Do not change the order of the imports. 
 Give me the entire file. Do not add any explanation. 
 Provide only the code. Do not surround the code in backticks.
-Remove widthStyles and classes where they are not needed.
+Remove withStyles and classes where they are not needed.
 Do not change anything other than the styles.`;
 
 async function setApiKey() {
@@ -77,8 +77,8 @@ async function refactorCode() {
         const response = await axios.post(
           'https://api.openai.com/v1/chat/completions',
           {
-            // model: 'gpt-4o-mini',
-            model: 'gpt-4-turbo',
+            //  model: 'gpt-4-turbo',
+            model: 'gpt-4o',
             messages: [
               {
                 role: 'system',
@@ -92,9 +92,9 @@ async function refactorCode() {
             temperature: 0.3,
             // max output tokens is 4096 for gpt-4-turbo,
             // max_tokens: 2048,
-            max_tokens: 4096,
-            // Max for gpt-4o-mini is 16,384
-            // max_completion_tokens: 8192,
+            // max_tokens: 4096,
+            // Max for gpt-4o is 16,384
+            max_completion_tokens: 8192,
           },
           {
             headers: {
