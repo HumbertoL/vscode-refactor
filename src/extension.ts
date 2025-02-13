@@ -86,8 +86,9 @@ async function refactorCode() {
               },
             ],
             temperature: 0.3,
-            // max is 4096,
-            max_tokens: 2048,
+            // max output tokens is 4096,
+            // max_tokens: 2048,
+            max_tokens: 4096,
           },
           {
             headers: {
